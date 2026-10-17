@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SMU BOT Study Trip to China 2026</title>
+
+  <style>
+    :root {
+      --navy: #11194e;
+      --bronze: #8a6940;
+      --ink: #1d2438;
+      --muted: #647084;
+      --line: #d9dde5;
+      --soft: #f6f7f9;
+      --white: #fff;
+      --shadow: 0 4px 14px rgba(17, 25, 78, 0.045);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font: 16px/1.5 Arial, sans-serif;
+      overflow-wrap: break-word;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--bronze);
+      outline-offset: 4px;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 28px));
+      margin-inline: auto;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    header {
+      padding: 34px 18px 42px;
+      border-bottom: 6px solid var(--bronze);
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    h1 {
+      margin: 0.2em 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.08;
+    }
+
+    .eyebrow {
+      color: #e4d8c5;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    .meta span::before {
+      margin-right: 8px;
+      color: #d8b98d;
+      content: "•";
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 17px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--navy);
+      font-weight: bold;
+      line-height: 1.3;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 150ms ease;
+    }
+
+    .btn.alt {
+      background: var(--bronze);
+      color: var(--white);
+    }
+
+    @media (hover: hover) {
+      .btn:hover {
+        background: #eef1f7;
+      }
+
+      .btn.alt:hover {
+        background: #755834;
+      }
+    }
+
+    .panel,
+    .card,
+    .day,
+    .group,
+    .phrase-group {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      position: relative;
+      margin: -30px auto 25px;
+      padding: 16px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .filters > div {
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      color: var(--navy);
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: 48px;
+      margin-top: 5px;
+      padding: 0 12px;
+      border: 2px solid var(--navy);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: normal;
+    }
+
+    input::placeholder {
+      color: var(--muted);
+      opacity: 1;
+    }
+
+    .filter-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .filter-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px 16px;
+      margin-top: 8px;
+    }
+
+    .filter-footer .filter-note {
+      margin: 0;
+    }
+
+    .reset-filters {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    @media (hover: hover) {
+      .reset-filters:hover {
+        background: #eef1f7;
+      }
+    }
+
+    main {
+      padding-bottom: 45px;
+    }
+
+    .section {
+      margin: 30px 0;
+      scroll-margin-top: 18px;
+    }
+
+    .section h2 {
+      margin-bottom: 12px;
+      color: var(--navy);
+      font-size: clamp(1.4rem, 3vw, 1.75rem);
+      line-height: 1.25;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 16px;
+    }
+
+    .day {
+      overflow: hidden;
+    }
+
+    .day h3 {
+      margin: 0;
+      padding: 15px 18px;
+      border-bottom: 4px solid var(--bronze);
+      background: var(--navy);
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    .day small {
+      display: block;
+      margin-top: 4px;
+      color: #e5e8f4;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+
+    .events {
+      padding: 6px 18px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 105px minmax(0, 1fr);
+      gap: 13px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .event:last-child {
+      border-bottom: 0;
+    }
+
+    .time {
+      color: var(--bronze);
+      font-weight: bold;
+    }
+
+    .event strong {
+      color: var(--navy);
+    }
+
+    .detail {
+      margin-top: 3px;
+      color: #424d61;
+      white-space: pre-line;
+    }
+
+    .detail.highlight {
+      padding: 8px 10px;
+      border-radius: 5px;
+      background: #fff2a8;
+      color: var(--ink);
+    }
+
+    .card {
+      padding: 19px;
+      border-top: 5px solid var(--bronze);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .card h4 {
+      margin-bottom: 5px;
+      color: var(--navy);
+    }
+
+    .card ul {
+      margin-top: 5px;
+      padding-left: 22px;
+    }
+
+    .card li + li {
+      margin-top: 8px;
+    }
+
+    .card ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .host-list {
+      white-space: pre-line;
+    }
+
+    details {
+      margin: 10px 0;
+    }
+
+    .group {
+      overflow: hidden;
+    }
+
+    .group summary {
+      padding: 15px 18px;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .group summary::marker {
+      color: #d8b98d;
+    }
+
+    .group[open] summary {
+      border-bottom: 4px solid var(--bronze);
+    }
+
+    .groupcontent {
+      padding: 16px;
+    }
+
+    .columns {
+      columns: 2;
+      column-gap: 36px;
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .columns li {
+      margin-bottom: 5px;
+      padding-left: 3px;
+      break-inside: avoid;
+    }
+
+    .phrase-groups {
+      display: grid;
+      gap: 16px;
+    }
+
+    .phrase-group {
+      overflow: hidden;
+    }
+
+    .phrase-group h3 {
+      margin: 0;
+      padding: 14px 18px;
+      border-bottom: 4px solid var(--bronze);
+      background: var(--navy);
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    .tablewrap {
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    .data th,
+    .data td {
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .data th {
+      background: #eef1f7;
+      color: var(--navy);
+    }
+
+    .data tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .data th:nth-child(1) {
+      width: 38%;
+    }
+
+    .data th:nth-child(2) {
+      width: 27%;
+    }
+
+    .data th:nth-child(3) {
+      width: 35%;
+    }
+
+    .data td:nth-child(2) {
+      font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .data td em {
+      color: #424d61;
+    }
+
+    footer {
+      padding: 24px 15px;
+      background: var(--navy);
+      color: #e7e9f2;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .filters,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .columns {
+        columns: 1;
+      }
+
+      .panel {
+        margin-top: -22px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: calc(100% - 22px);
+      }
+
+      header {
+        padding: 26px 0 38px;
+      }
+
+      h1 {
+        font-size: clamp(1.9rem, 8vw, 2.5rem);
+        line-height: 1.12;
+      }
+
+      .eyebrow {
+        font-size: 0.78rem;
+      }
+
+      .meta {
+        gap: 8px;
+        font-size: 0.93rem;
+      }
+
+      .meta span {
+        width: 100%;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .panel {
+        padding: 13px;
+      }
+
+      .section {
+        margin: 24px 0;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .day h3,
+      .phrase-group h3,
+      .group summary {
+        padding: 13px 15px;
+      }
+
+      .events {
+        padding-inline: 15px;
+      }
+
+      /* Compact three-column Mandarin table */
+      .phrase-group .data {
+        width: 100%;
+        min-width: 0;
+        table-layout: fixed;
+      }
+
+      .phrase-group .data th,
+      .phrase-group .data td {
+        padding: 6px 5px;
+        font-size: 0.8rem;
+        line-height: 1.3;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      .phrase-group .data th:nth-child(1) {
+        width: 35%;
+      }
+
+      .phrase-group .data th:nth-child(2) {
+        width: 25%;
+      }
+
+      .phrase-group .data th:nth-child(3) {
+        width: 40%;
+      }
+
+      .phrase-group .data td:nth-child(2) {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">
+        Singapore Management University
+      </div>
+
+      <h1>SMU BOT Study Trip to China 2026</h1>
+
+      <div class="meta">
+        <span>18 - 23 October 2026</span>
+        <span>Shanghai · Hangzhou · Shenzhen</span>
+      </div>
+
+      <nav class="actions" aria-label="Trip navigation">
+        <a
+          class="btn alt"
+          href="https://forms.cloud.microsoft/pages/responsepage.aspx?id=ynmKyZpakUeiQ_Bq_WdGTXaPM-PZq55HmBh53PcK_TFUNFRWQVlGT0JYSkU3S1VCVURYTFVJOUI3Ui4u&amp;route=shorturl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Reflections Form
+        </a>
+
+        <button class="btn" type="button" data-view="programme">
+          Programme
+        </button>
+
+        <button class="btn" type="button" data-view="briefs">
+          Engagement Briefs
+        </button>
+
+        <button class="btn" type="button" data-view="groupings">
+          Groupings &amp; Flights
+        </button>
+
+        <button class="btn" type="button" data-view="phrases">
+          Useful Mandarin Phrases
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel">
+      <div class="filters">
+        <div>
+          <label for="q">Search all trip information</label>
+          <input
+            id="q"
+            type="search"
+            placeholder="Search cities, flights, visits or topics"
+          >
+        </div>
+
+        <div>
+          <label for="day">Day</label>
+          <select id="day" aria-describedby="filterNote">
+            <option value="all">All days</option>
+            <option value="d1">Day 1 - Shanghai</option>
+            <option value="d2">Day 2 - Shanghai / Hangzhou</option>
+            <option value="d3">Day 3 - Hangzhou</option>
+            <option value="d4">Day 4 - Hangzhou / Shenzhen</option>
+            <option value="d5">Day 5 - Shenzhen</option>
+            <option value="d6">Day 6 - Shenzhen / Hong Kong</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="view">View</label>
+          <select id="view">
+            <option value="all">All information</option>
+            <option value="programme">Programme</option>
+            <option value="briefs">Engagement briefs</option>
+            <option value="groupings">Groupings &amp; flights</option>
+            <option value="phrases">Useful Mandarin phrases</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-footer">
+        <p class="filter-note" id="filterNote">
+          The Day filter applies to the programme, groupings and engagement briefs
+        </p>
+
+        <button
+          class="reset-filters"
+          id="resetFilters"
+          type="button"
+        >
+          Reset filters
+        </button>
+      </div>
+    </div>
+
+    <noscript>
+      <p class="card">
+        Please enable JavaScript to view the trip information.
+      </p>
+    </noscript>
+
+    <section
+      class="section"
+      id="programme"
+      aria-labelledby="programmeHeading"
+    >
+      <h2 id="programmeHeading">Detailed programme</h2>
+      <div class="grid" id="programmeContent"></div>
+    </section>
+
+    <section
+      class="section"
+      id="groupings"
+      aria-labelledby="groupingsHeading"
+    >
+      <h2 id="groupingsHeading">Groupings, flights and transfers</h2>
+      <div id="groupContent"></div>
+    </section>
+
+    <section
+      class="section"
+      id="briefs"
+      aria-labelledby="briefsHeading"
+    >
+      <h2 id="briefsHeading">Engagement briefs</h2>
+      <div class="grid" id="briefContent"></div>
+    </section>
+
+    <section
+      class="section"
+      id="phrases"
+      aria-labelledby="phrasesHeading"
+    >
+      <h2 id="phrasesHeading">Useful Mandarin Phrases</h2>
+      <div class="phrase-groups" id="phraseContent"></div>
+    </section>
+  </main>
+
+  <footer>
+    Last updated 17 Oct 2026 | As changes may occur, please check in with the team.
+  </footer>
+
+  <script>
+    "use strict";
+
+    /*
+     * PROGRAMME
+     *
+     * Each event uses:
+     * ["Time", "Title", "Details"]
+     *
+     * Add true as a fourth value to highlight the details:
+     * ["Time", "Title", "Details", true]
+     *
+     * Use straight quotation marks: "
+     */
+    const days = [
+      {
+        id: "d1",
+        title: "Day 1 - Shanghai",
+        date: "Sunday, 18 October 2026",
+        events: [
+          [
+            "18:30–21:00",
+            "Welcome Dinner and Fireside Chat",
+            "Lifestyle Suite & Garden, Level 4, Jing An Shangri-La"
+          ]
+        ]
+      },
+      {
+        id: "d2",
+        title: "Day 2 - Shanghai / Hangzhou",
+        date: "Monday, 19 October 2026",
+        events: [
+          [
+            "08:00",
+            "Check out from Jing An Shangri-La",
+            "Carry passport and all essentials. Luggage will be sent by road to Hangzhou",
+            true
+          ],
+          [
+            "08:15 / 08:45",
+            "Small group / Large group depart for Fudan University",
+            "East Building (Small Group Only), Guanghua Twin Tower, Handan Campus"
+          ],
+          [
+            "09:00–11:30",
+            "Fudan University",
+            "West Building, Guanghua Twin Tower, Handan Campus. Institutional exchange on AI-enabled education and talent development"
+          ],
+          [
+            "12:00–13:30",
+            "Lunch at Su Zhe Hui Restaurant",
+            "Huatai Building, No. 388 Zhaojiabang Road, Xuhui District, Shanghai"
+          ],
+          [
+            "15:13–16:14",
+            "Group 1 - Train G1641",
+            "Shanghai South Railway Station to Hangzhou East Railway Station"
+          ],
+          [
+            "15:22–16:30",
+            "Group 2 - Train G7337",
+            "Shanghai South Railway Station to Hangzhou East Railway Station"
+          ],
+          [
+            "17:45",
+            "Check in",
+            "Midtown Shangri-La Hangzhou"
+          ],
+          [
+            "19:00–21:00",
+            "Dinner and Debrief",
+            "West Lake Spring Restaurant, Hangzhou"
+          ]
+        ]
+      },
+      {
+        id: "d3",
+        title: "Day 3 - Hangzhou",
+        date: "Tuesday, 20 October 2026",
+        events: [
+          [
+            "09:00–09:30",
+            "Depart for Zhejiang University",
+            "Nano Building, Zijingang Campus. Institutional exchange, Future Learning Centre tour and lunch on campus"
+          ],
+          [
+            "09:30–13:00",
+            "Zhejiang University",
+            "Nano Building, Zijingang Campus. Institutional exchange, Future Learning Centre tour and lunch on campus"
+          ],
+          [
+            "14:30–16:30",
+            "Alibaba",
+            "Xixi Campus, West Zone, Gate A3. Pavilion 9 tour, AI for Good and leadership exchange"
+          ],
+          [
+            "17:45",
+            "Early buffet dinner",
+            "Central Market, Level 1, Midtown Shangri-La Hangzhou"
+          ],
+          [
+            "19:00–19:45",
+            "Depart for Impression West Lake show",
+            ""
+          ],
+          [
+            "19:45–20:45",
+            "Impression West Lake show",
+            ""
+          ]
+        ]
+      },
+      {
+        id: "d4",
+        title: "Day 4 - Hangzhou / Shenzhen",
+        date: "Wednesday, 21 October 2026",
+        events: [
+          [
+            "06:45",
+            "Group 1 check-out",
+            "15 pax. Leave hotel 07:00 for Hangzhou International Airport"
+          ],
+          [
+            "07:45",
+            "Group 2 check-out",
+            "18 pax. Leave hotel 08:00 for Hangzhou International Airport"
+          ],
+          [
+            "10:05–12:20",
+            "Group 1 - Zhejiang Loong Airlines GJ8965",
+            "Hangzhou to Shenzhen"
+          ],
+          [
+            "10:55–13:15",
+            "Group 2 - Xiamen Airlines MF8387",
+            "Hangzhou to Shenzhen"
+          ],
+          [
+            "15:30–17:15",
+            "BYD Headquarters",
+            "No. 3009, BYD Road, Pingshan District, Shenzhen"
+          ],
+          [
+            "19:00–21:00",
+            "Dinner and Debrief",
+            "Yijing Function Room, Raffles Shenzhen"
+          ]
+        ]
+      },
+      {
+        id: "d5",
+        title: "Day 5 - Shenzhen",
+        date: "Thursday, 22 October 2026",
+        events: [
+          [
+            "08:30–09:00",
+            "Depart for InnoX Academy",
+            "Building C1, Phase II, Creative City, Nanshan District"
+          ],
+          [
+            "09:00–10:30",
+            "InnoX Academy",
+            "Building C1, Phase II, Creative City, Nanshan District"
+          ],
+          [
+            "11:15–13:35",
+            "Tencent Binhai HQ",
+            "Tour, presentation and lunch"
+          ],
+          [
+            "17:30–21:00",
+            "SMU China Launch Ceremony and Dinner",
+            "Raffles Shenzhen: VIP reception, Launch Ceremony, and Dinner"
+          ]
+        ]
+      },
+      {
+        id: "d6",
+        title: "Day 6 - Shenzhen / Hong Kong",
+        date: "Friday, 23 October 2026",
+        events: [
+          [
+            "08:15",
+            "Group 1 check-out",
+            "Transfer 08:30 to Hong Kong International Airport"
+          ],
+          [
+            "11:30",
+            "Group 2 check-out",
+            "Transfer 11:45 to Hong Kong International Airport"
+          ],
+          [
+            "12:35",
+            "Group 1 - SQ875",
+            "Hong Kong to Singapore"
+          ],
+          [
+            "15:40",
+            "Group 2 - SQ893",
+            "Hong Kong to Singapore"
+          ]
+        ]
+      }
+    ];
+
+    /*
+     * GROUPINGS
+     *
+     * Separate names with semicolons.
+     * Update the headcount in the title if the list changes.
+     */
+    const groups = [
+      {
+        day: "d2",
+        title: "Day 2 - Train G1641 (16 pax)",
+        names: "LIM Eng Hwee; Hugh LIM; LIM Kexin; Arif RACHMAT; Nigel THRIFT; Alan CHAN; Scott FRITZEN; Gary PAN; Themin SUWARDY; LEE Pey Woan; ZHANG Liandong; ZHU Feida; Phoebe PUA; Denise CHUA; Tara HE; Jocelyn THNG"
+      },
+      {
+        day: "d2",
+        title: "Day 2 - Train G7337 (18 pax)",
+        names: "Piyush GUPTA; Parnsiree AMATAYAKUL; Deborah HO; Jeffrey JAENSUBHAKIJ; KHO Hui Meng; Sherman KWEK; PNG Chin Yee; Lily KONG; CHAN Wai Leng; David LO; Maartje DE VISSER; Michelle LEE; Orlando WOODS; LI Jia; Florence NEO; Joanna LEE; YIP Siew Min; Kristy WON"
+      },
+      {
+        day: "d4",
+        title: "Day 4 - Group 1 (15 pax) · Zhejiang Loong Airlines GJ8965 · 10:05–12:20",
+        names: "LIM Eng Hwee; Hugh LIM; LIM Kexin; Nigel THRIFT; Alan CHAN; Scott FRITZEN; Tamas MAKANY; Gary PAN; Themin SUWARDY; LEE Pey Woan; ZHANG Liandong; Phoebe PUA; Denise CHUA; Tara HE; Jocelyn THNG"
+      },
+      {
+        day: "d4",
+        title: "Day 4 - Group 2 (18 pax) · Xiamen Airlines MF8387 · 10:55–13:15",
+        names: "Piyush GUPTA; Parnsiree AMATAYAKUL; Deborah HO; Jeffrey JAENSUBHAKIJ; KHO Hui Meng; Sherman KWEK; PNG Chin Yee; Lily KONG; CHAN Wai Leng; David LO; Maartje DE VISSER; Michelle LEE; Orlando WOODS; LI Jia; Florence NEO; Joanna LEE; YIP Siew Min; Kristy WON"
+      },
+      {
+        day: "d6",
+        title: "Day 6 - Group 1 (15 pax) · SQ875 · 12:35",
+        names: "Parnsiree AMATAYAKUL; Jeffrey JAENSUBHAKIJ; KHO Hui Meng; Hugh LIM; LIM Kexin (drop off at HKIA); Lily KONG;CHAN Wai Leng; Maartje DE VISSER; Orlando WOODS; Florence NEO; Joanna LEE; Jocelyn THNG; Kristy WON; Tamas MAKANY; Paul Beh"
+      },
+      {
+        day: "d6",
+        title: "Day 6 - Group 2 (10 pax) · SQ893 · 15:40",
+        names: "Piyush GUPTA; Deborah HO; David LO; Gary PAN (dropp off at HKIA; Scott FRITZEN; Michelle LEE; YIP Siew Mi; Phoebe PUA; LEE Pey Woan"
+      }
+    ];
+
+    /*
+     * ENGAGEMENT BRIEFS
+     *
+     * Each entry in the hosts array appears on a separate line.
+     * If a visit time changes, update its location line here too.
+     */
+    const briefs = [
+      {
+        day: "d1",
+        organisation: "Welcome Dinner and Fireside Chat",
+        location: "Shanghai · 18 October 2026 · 18:30–21:00",
+        hosts: [
+          "Speaker: Mr David Su, Founding Managing Partner, MPCi and Member, SMU IAC China",
+          "Moderator: Dr Jeffrey Jaensubhakij, Advisor, GIC and Member, SMU Board of Trustees"
+        ],
+        focus: "China’s Growth and Talent Transformation: Innovation, Challenges, and Opportunities for SMU.",
+        objectives: [
+          "China’s venture-backed innovation cycles, from consumer internet to deep tech, EVs and AI, with growing focus on capital efficiency and profitability",
+          "Innovation ecosystems across key Chinese cities and the factors shaping their trajectories",
+          "Talent and leadership needs of Chinese technology companies and the role academics can play"
+        ]
+      },
+      {
+        day: "d2",
+        organisation: "Fudan University",
+        location: "Shanghai · 19 October 2026 · 09:00–11:30",
+        hosts: [
+          "Prof Qiu Xin, Party Secretary and Chairperson of the University Council",
+          "Prof Chen Yan, Associate Vice President and Executive Vice Dean, Graduate School",
+        ],
+        focus: "AI-enabled education, talent development, interdisciplinary learning and industry collaboration",
+        objectives: [
+          "FDU’s overall approach and strategic direction in AI in education, including its system-wide curriculum model and positioning within China’s broader higher education and innovation landscape.",
+          "How AI is being integrated across disciplines and scaled to all students, including curriculum transformation and interdisciplinary programme models.",
+          "How AI is applied in practice to enhance teaching, learning and research, and how such approaches are implemented institution-wide.",
+          "Models of industry collaboration in AI education and training, including how partners are integrated into teaching and student development"
+        ]
+      },
+      {
+        day: "d3",
+        organisation: "Zhejiang University",
+        location: "Hangzhou · 20 October 2026 · 09:30–13:00",
+        hosts: [
+          "Prof Chen Gang, Vice President",
+        ],
+        focus: "AI-enabled education, future learning, talent development and industry collaboration",
+        objectives: [
+          "ZJU’s overall approach and strategic direction in AI in education, including how it is positioned within China’s broader higher education and innovation landscape.",
+          "How AI is being integrated across disciplines and scaled to all students, including curriculum transformation and interdisciplinary programme models.",
+          "How AI is applied in practice to enhance teaching, learning and research, and how such approaches are implemented at scale.",
+          "Models of industry collaboration in AI education and training, including how partners are integrated into teaching and student development."
+        ]
+      },
+      {
+        day: "d3",
+        organisation: "Alibaba",
+        location: "Hangzhou · 20 October 2026 · 14:30–16:30",
+        hosts: [
+          "Dr Jingren Zhou, Senior Vice President, Chief Scientist and Partner, Alibaba Group",
+          "Prof Steven Hoi Chu-hong, Vice President, Alibaba Group",
+          "Dr Zhou Wenchao, Research Scientist, Alibaba Cloud"
+        ],
+        focus: "AI strategy, AI for Good, sustainability, enterprise deployment and future talent",
+        objectives: [
+          "Alibaba’s AI strategy: Gain insights into Alibaba’s strategic priorities in AI, including the development of foundation and multimodal models, AI infrastructure, and how AI is expected to shape the Group’s businesses and future growth.",
+          "AI innovation and applications: Understand how Alibaba is translating advances in AI into real-world applications across its ecosystem and industries, and explore areas aligned with SMU’s strategic interests, including AI for Good, sustainability and the digital economy.",
+          "From models to deployment: Learn how Alibaba is building the technology stack required to scale AI - from large-model development and multimodal interaction to computing infrastructure, enterprise deployment and agentic AI.",
+          "Talent and university collaboration: Exchange perspectives on the capabilities required for an AI-driven future, and explore opportunities for collaboration between Alibaba and SMU in research, talent development and industry engagement."
+        ]
+      },
+      {
+        day: "d4",
+        organisation: "BYD",
+        location: "Shenzhen · 21 October 2026 · 15:30–17:15",
+        hosts: [
+          "Mr Wu Yue, Director of Investor Relations, BYD Group and Securities Affairs Representative, BYD Company Limited"
+        ],
+        focus: "Electric vehicles, batteries, clean energy, intelligent mobility and talent development",
+        objectives: [
+          "China’s innovation landscape: Overview of BYD’s innovation ecosystem and growth strategy across electric vehicles, batteries and clean energy solutions, and how it collaborates with government, industry and research institutions.",
+          "Innovation alignment: Understand how BYD leverages its business verticals to address growth sectors aligned with SMU strategic interests, such as longevity-focused products and services, green economy infrastructure and AI-powered sustainable cities, workforce development for the AI revolution, and regulatory environment shaping digital trade and data flows.",
+          "Talent development: Learn about BYD’s approach to future-oriented talent development and leadership capability building.",
+          "China-ASEAN strategy: Gain insights into BYD’s global expansion strategy, the role of Singapore and Southeast Asia, and how BYD navigates expansion across different markets and cultures."
+        ]
+      },
+      {
+        day: "d5",
+        organisation: "InnoX Academy",
+        location: "Shenzhen · 22 October 2026 · 09:00–10:30",
+        hosts: [
+          "Ms Carol Yu, Founding Partner and Vice Dean",
+          "Zhuo Yu Ying, Director, External Relations"
+        ],
+        focus: "Deep-tech innovation, entrepreneurship, cross-border innovation and future talent",
+        objectives: [
+          "China's deep tech landscape: Understand InnoX's positioning within China's national innovation system and the technologies and sectors the government is prioritising across the GBA and beyond.",
+          "Cross-border innovation model: Gain insights on how leading innovation ecosystems connect and collaborate across borders.",
+          "GBA-ASEAN strategy: Draw lessons for how SMU can sharpen its position as a GBA-ASEAN regional gateway, leveraging its signature programmes, and global convening platforms.",
+          "Talent development: Learn about InnoX's approach to future-oriented talent development and leadership capability-building."
+        ]
+      },
+      {
+        day: "d5",
+        organisation: "Tencent",
+        location: "Shenzhen · 22 October 2026 · 11:15–13:35",
+        hosts: [
+          "Dr Charles Chen Yidan, Core Founder, Tencent and Founder, The Yidan Prize",
+          "Dr Jason Si, Vice President, Tencent Group",
+          "Dr Li Gang, Chief Analyst, Tencent Research Institute"
+        ],
+        focus: "Digital economy, AI, talent development, internationalisation and China–ASEAN growth",
+        objectives: [
+          "Tencent’s strategic direction: Overview of Tencent’s strategic priorities, super-app ecosystem and what these signal for China’s digital economy.",
+          "Innovation alignment: Understand how Tencent leverages its business verticals to address growth sectors aligned with SMU strategic interests, such as longevity-focused products and services, green economy infrastructure and AI-powered sustainable cities, workforce development for the AI revolution, and regulatory environment shaping digital trade and data flows.",
+          "Talent development: Learn about Tencent’s approach to future-oriented talent development and leadership capability building.",
+          "China-ASEAN strategy: Gain insights into Tencent’s internationalisation strategy and the role of Singapore and Southeast Asia in its growth."
+        ]
+      }
+    ];
+
+    /*
+     * MANDARIN PHRASES
+     *
+     * Each row uses:
+     * ["English", "Chinese", "Pinyin"]
+     */
+    const phraseGroups = [
+      {
+        title: "A. Travel Essentials",
+        rows: [
+          ["Hello", "你好", "nǐ hǎo"],
+          ["Thank you", "谢谢", "xièxie"],
+          ["You're welcome", "不客气", "bú kèqi"],
+          ["Excuse me / Sorry", "不好意思", "bù hǎoyìsi"],
+          ["Please help me", "请帮帮我", "qǐng bāngbang wǒ"],
+          ["May I speak in English?", "我可以说英语吗？", "wǒ kěyǐ shuō yīngyǔ ma?"],
+          ["Where is the toilet?", "洗手间在哪里？", "xǐshǒujiān zài nǎlǐ?"],
+          ["How much is it?", "多少钱？", "duōshao qián?"],
+          ["I would like this one", "我想要这个", "wǒ xiǎng yào zhège"],
+          ["Delicious", "好吃", "hǎo chī"]
+        ]
+      },
+      {
+        title: "B. Business Terms",
+        rows: [
+          ["Singapore Management University", "新加坡管理大学", "xīnjiāpō guǎnlǐ dàxué"],
+          ["City campus", "城市校园", "chéngshì xiàoyuán"],
+          ["Small-group class", "小班课", "xiǎo bān kè"],
+          ["Cooperation", "合作", "hézuò"],
+          ["Mutual benefit", "互利", "hùlì"],
+          ["Win-win cooperation", "合作共赢", "hézuò gòngyíng"],
+          ["Innovation", "创新", "chuàngxīn"],
+          ["Development", "发展", "fāzhǎn"],
+          ["Sustainable development", "可持续发展", "kě chíxù fāzhǎn"],
+          ["Technology", "科技", "kējì"],
+          ["Global perspective", "全球化视野", "quánqiúhuà shìyě"]
+        ]
+      },
+      {
+        title: "C. Academic Terms",
+        rows: [
+          ["Research", "研究", "yánjiū"],
+          ["Talent", "人才", "réncái"],
+          ["Professor", "教授", "jiàoshòu"],
+          ["Undergraduate student", "本科生", "běnkēshēng"],
+          ["Master’s student", "硕士生", "shuòshìshēng"],
+          ["Doctoral student", "博士生", "bóshìshēng"],
+          ["Internship", "实习", "shíxí"],
+          ["Employment", "就业", "jiùyè"],
+          ["Alumni", "校友", "xiàoyǒu"],
+          ["Lifelong learning", "终身学习", "zhōngshēn xuéxí"]
+        ]
+      },
+      {
+        title: "D. General Conversation",
+        rows: [
+          ["I am...", "我是 [Name]", "wǒ shì ..."],
+          ["It's an honour to meet you", "很荣幸见到您", "hěn róngxìng jiàndào nín"],
+          ["Please give us your guidance", "请多指教", "qǐng duō zhǐjiào"],
+          ["I (don't) understand", "我(不)明白", "wǒ (bù) míngbái"],
+          ["No problem", "没问题", "méi wèntí"],
+          ["That's good", "很好", "hěn hǎo"],
+          ["Everyone, please eat", "大家请用餐", "dàjiā qǐng yòngcān"],
+          ["After you / You first, please", "您先请", "nín xiān qǐng"],
+          ["Let's keep in touch", "保持联系", "bǎochí liánxì"],
+          ["We hope you'll visit us in Singapore", "希望您能来新加坡看看", "xīwàng nín néng lái xīnjiāpō kànkan"],
+          ["I'll drink to that (toast)", "干杯", "gānbēi"]
+        ]
+      }
+    ];
+
+    /*
+     * PAGE FUNCTIONS
+     */
+    const sectionIds = [
+      "programme",
+      "briefs",
+      "groupings",
+      "phrases"
+    ];
+
+    const searchInput = document.getElementById("q");
+    const daySelect = document.getElementById("day");
+    const viewSelect = document.getElementById("view");
+
+    function esc(value) {
+      const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      };
+
+      return String(value).replace(
+        /[&<>"']/g,
+        char => entities[char]
+      );
+    }
+
+    function normalise(value) {
+      return String(value)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function matches(value, query) {
+      return (
+        !query ||
+        normalise(JSON.stringify(value)).includes(query)
+      );
+    }
+
+    function emptyMessage(message) {
+      return `<div class="card">${esc(message)}</div>`;
+    }
+
+    function renderProgramme(query, selectedDay) {
+      const html = days
+        .filter(day =>
+          selectedDay === "all" || day.id === selectedDay
+        )
+        .map(day => {
+          const dayMatches = matches(
+            [day.title, day.date],
+            query
+          );
+
+          const events = day.events.filter(event =>
+            dayMatches ||
+            matches(event.slice(0, 3), query)
+          );
+
+          if (!events.length) return "";
+
+          return `
+            <article class="day">
+              <h3>
+                ${esc(day.title)}
+                <small>${esc(day.date)}</small>
+              </h3>
+
+              <div class="events">
+                ${events.map(event => `
+                  <div class="event">
+                    <div class="time">
+                      ${esc(event[0])}
+                    </div>
+
+                    <div>
+                      <strong>${esc(event[1])}</strong>
+
+                      ${event[2] ? `
+                        <div class="detail${event[3] ? " highlight" : ""}">${esc(event[2])}</div>
+                      ` : ""}
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      document.getElementById("programmeContent").innerHTML =
+        html || emptyMessage("No programme items found.");
+    }
+
+    function renderGroups(query, selectedDay) {
+      const html = groups
+        .filter(group =>
+          (
+            selectedDay === "all" ||
+            group.day === selectedDay
+          ) &&
+          matches([group.title, group.names], query)
+        )
+        .map(group => `
+          <details class="group"${query ? " open" : ""}>
+            <summary>${esc(group.title)}</summary>
+
+            <div class="groupcontent">
+              <ol class="columns">
+                ${group.names
+                  .split(";")
+                  .map(name =>
+                    `<li>${esc(name.trim())}</li>`
+                  )
+                  .join("")}
+              </ol>
+            </div>
+          </details>
+        `)
+        .join("");
+
+      document.getElementById("groupContent").innerHTML =
+        html || emptyMessage("No grouping found.");
+    }
+
+    function renderBriefs(query, selectedDay) {
+      const html = briefs
+        .filter(brief =>
+          (
+            selectedDay === "all" ||
+            brief.day === selectedDay
+          ) &&
+          matches(
+            [
+              brief.organisation,
+              brief.location,
+              brief.hosts,
+              brief.focus,
+              brief.objectives
+            ],
+            query
+          )
+        )
+        .map(brief => `
+          <article class="card">
+            <h3>${esc(brief.organisation)}</h3>
+
+            <strong>${esc(brief.location)}</strong>
+
+            <p>
+              <b>Hosts</b><br>
+              <span class="host-list">${brief.hosts.map(esc).join("<br>")}</span>
+            </p>
+
+            <p>
+              <b>Focus</b><br>
+              ${esc(brief.focus)}
+            </p>
+
+            <h4>Engagement objectives</h4>
+
+            <ul>
+              ${brief.objectives
+                .map(objective =>
+                  `<li>${esc(objective)}</li>`
+                )
+                .join("")}
+            </ul>
+          </article>
+        `)
+        .join("");
+
+      document.getElementById("briefContent").innerHTML =
+        html || emptyMessage("No brief found.");
+    }
+
+    function renderPhrases(query) {
+      const html = phraseGroups
+        .map(group => {
+          const groupMatches = matches(
+            group.title,
+            query
+          );
+
+          const rows = group.rows.filter(row =>
+            groupMatches || matches(row, query)
+          );
+
+          if (!rows.length) return "";
+
+          return `
+            <article class="phrase-group">
+              <h3>${esc(group.title)}</h3>
+
+              <div
+                class="tablewrap"
+                role="region"
+                aria-label="${esc(group.title)}"
+                tabindex="0"
+              >
+                <table class="data">
+                  <thead>
+                    <tr>
+                      <th scope="col">English</th>
+                      <th scope="col">Chinese</th>
+                      <th scope="col">Hanyu Pinyin</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    ${rows.map(row => `
+                      <tr>
+                        <td>${esc(row[0])}</td>
+                        <td lang="zh-Hans">${esc(row[1])}</td>
+                        <td><em>${esc(row[2])}</em></td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      document.getElementById("phraseContent").innerHTML =
+        html || emptyMessage("No Mandarin phrases found.");
+    }
+
+    function render() {
+      const query = normalise(searchInput.value);
+      const selectedDay = daySelect.value;
+
+      renderProgramme(query, selectedDay);
+      renderGroups(query, selectedDay);
+      renderBriefs(query, selectedDay);
+      renderPhrases(query);
+    }
+
+    function setView(id, scroll = false) {
+      if (
+        id !== "all" &&
+        !sectionIds.includes(id)
+      ) {
+        return;
+      }
+
+      viewSelect.value = id;
+
+      sectionIds.forEach(sectionId => {
+        document
+          .getElementById(sectionId)
+          .classList.toggle(
+            "hidden",
+            id !== "all" && sectionId !== id
+          );
+      });
+
+      document
+        .querySelectorAll("[data-view]")
+        .forEach(button => {
+          button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.view === id)
+          );
+        });
+
+      if (scroll) {
+        const target = document.getElementById(
+          id === "all" ? "programme" : id
+        );
+
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start"
+        });
+      }
+    }
+
+    searchInput.addEventListener("input", () => {
+      if (searchInput.value.trim()) {
+        setView("all");
+      }
+
+      render();
+    });
+
+    document
+      .getElementById("resetFilters")
+      .addEventListener("click", () => {
+        searchInput.value = "";
+        daySelect.value = "all";
+        setView("all");
+        render();
+      });
+
+    daySelect.addEventListener("change", render);
+
+    viewSelect.addEventListener("change", () => {
+      setView(viewSelect.value, true);
+    });
+
+    document
+      .querySelectorAll("[data-view]")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          setView(button.dataset.view, true);
+        });
+      });
+
+    render();
+    setView("all");
+  </script>
+</body>
+</html>
